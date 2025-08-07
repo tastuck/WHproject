@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Waffle House Order System</title>
+  <style>
+    body { font-family: sans-serif; }
+    .seat-form { border: 1px solid #ccc; padding: 1em; margin-bottom: 1em; }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+  <h1>Waffle House Order Entry</h1>
+
+  <button onclick="addSeat()">Add Seat</button>
+  <form id="orderForm">
+    <div id="seatContainer"></div>
+    <button type="submit">Submit Order</button>
+  </form>
+
+  <!-- ✅ Output display for Pull/Drop/Mark/Total -->
+  <div id="result" style="white-space: pre-line; margin-top: 1em; font-weight: bold;"></div>
+
+  <template id="seatTemplate">
+    <div class="seat-form">
+      <h3>Seat <span class="seat-number"></span></h3>
+      <label>Waffle:
+  <select class="waffle-flavor">
+    <option value="none">None</option>
+    <option value="plain">Plain</option>
+    <option value="chocolate_chip">Chocolate Chip (+0.50)</option>
+    <option value="pecan">Pecan (+0.50)</option>
+    <option value="peanut_butter">Peanut Butter (+0.50)</option>
+    <option value="blueberry">Blueberry (+0.50)</option>
+  </select>
+</label>
+
+<label>Qty:
+  <input type="number" class="waffle-qty" min="1" max="3" value="1">
+</label><br>
+
+
+      <label>Meat:
+        <select name="meat" class="meat">
+          <option value="">None</option>
+          <option value="bacon">Bacon</option>
+          <option value="sausage">Sausage</option>
+          <option value="city_ham">City Ham</option>
+          <option value="country_ham">Country Ham</option>
+          <option value="chicken">Chicken</option>
+          <option value="pork_chop">Pork Chop</option>
+          <option value="t_bone">T-Bone</option>
+          <option value="delmonico">Delmonico</option>
+          <option value="cheesesteak">Cheesesteak</option>
+        </select>
+      </label><br>
+
+      <label>Eggs:
+        <select name="eggs" class="eggs">
+          <option value="">None</option>
+          <option value="order_scrambled">Order Scrambled</option>
+          <option value="order_scrambled_cheese">Order Scrambled w/ Cheese (+0.50)</option>
+          <option value="triple_scrambled">Triple Scrambled</option>
+          <option value="over_light">Order Over Light</option>
+          <option value="over_medium">Order Over Medium</option>
+          <option value="over_well">Order Over Well</option>
+        </select>
+      </label><br>
+
+      <label>Toast:
+        <select name="toast" class="toast">
+          <option value="">White (default)</option>
+          <option value="raisin">Raisin</option>
+          <option value="wheat">Wheat</option>
+          <option value="biscuit">Biscuit</option>
+          <option value="none">No Toast</option>
+        </select>
+      </label><br>
+
+      <label>Hashbrowns:
+        <select name="hashbrowns" class="hashbrowns">
+          <option value="">None</option>
+          <option value="single">Single</option>
+          <option value="double">Double</option>
+          <option value="triple">Triple</option>
+        </select>
+      </label><br>
+
+      <label>Hashbrown Toppings ($0.50 each):<br>
+        <div class="hashbrown-mods">
+          <input type="checkbox" value="smothered"> Smothered (onions)<br>
+          <input type="checkbox" value="covered"> Covered (cheese)<br>
+          <input type="checkbox" value="chunked"> Chunked (ham)<br>
+          <input type="checkbox" value="diced"> Diced (tomatoes)<br>
+          <input type="checkbox" value="peppered"> Peppered (jalapenos)<br>
+          <input type="checkbox" value="capped"> Capped (mushrooms)<br>
+          <input type="checkbox" value="topped"> Topped (chili)<br>
+          <input type="checkbox" value="country"> Country (gravy)
+        </div>
+      </label><br>
+
+      <label>Grits Bowl:
+        <select name="grits_bowl" class="grits-bowl">
+          <option value="">None</option>
+          <option value="bacon">Bacon</option>
+          <option value="sausage">Sausage</option>
+          <option value="ham">Ham</option>
+        </select>
+      </label><br>
+
+      <label>Sandwiches:
+        <select name="sandwich" class="sandwich">
+          <option value="">None</option>
+          <option value="bacon_egg_cheese">Bacon, Egg & Cheese</option>
+          <option value="sausage_egg_cheese">Sausage, Egg & Cheese</option>
+          <option value="ham_egg_cheese">Ham, Egg & Cheese</option>
+          <option value="cheesesteak_melt">Cheesesteak Melt</option>
+          <option value="grilled_cheese">Grilled Cheese</option>
+        </select>
+      </label><br>
+
+      <label>Beverage:
+        <select name="drink" class="beverage">
+          <option value="">None</option>
+          <option value="coffee">Coffee</option>
+          <option value="tea">Tea</option>
+          <option value="milk">Milk</option>
+          <option value="juice">Juice</option>
+          <option value="soft_drink">Soft Drink</option>
+        </select>
+      </label><br>
+    </div>
+  </template>
+
+  <script>
+    let seatCount = 0;
+    function addSeat() {
+      if (seatCount >= 8) return;
+      seatCount++;
+      const container = document.getElementById('seatContainer');
+      const template = document.getElementById('seatTemplate');
+      const clone = template.content.cloneNode(true);
+      clone.querySelector('.seat-number').textContent = seatCount;
+      container.appendChild(clone);
+    }
+  </script>
+  <script src="/static/script.js"></script>
+</body>
+</html>
